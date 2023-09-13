@@ -1,50 +1,53 @@
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PhoneBookContainer } from '../components/App/App.styled';
 import { ContactForm } from '../components/ContactForm/ContactForm';
 import { ContactList } from '../components/ContactList/ContactList';
 import { Filter } from '../components/Filter/Filter';
-import { fetchContacts } from '../redux/contacts/operations';
+import { fetchTestById } from '../redux/tests/operations';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getTests, testById} from '../redux/tests/selectors';
+import { StyledLinks } from "../components/SharedLayout/SharedLayout.styled"
 // import { Loader } from 'components/Loader/Loader';
 // import { ThreeDots } from "react-loader-spinner";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useParams } from "react-router-dom";
 
 
 
 
-const Contacts = () => {
+const TestsList = () => {
 
   const dispatch = useDispatch()
-  const isLoading = useSelector(state => state.contacts.isLoading)
+    const isLoading = useSelector(state => state.tests.isLoading)
+    const tests = useSelector(testById)
+    const { id } = useParams();
+    console.log(id);
 
   useEffect(() => {
-    dispatch(fetchContacts())
+    dispatch(fetchTestById(id))
   }, [dispatch])
   
   return (
     <PhoneBookContainer style={
-      {
-      //   display:'flex',
-      // flexDirection: 'column',
-      // justifyContent: 'center',
-      // lignItems: 'center',
-      }
+
+      {marginTop:'0px',}
+      
     } >
       
-        <h1>PhoneBook</h1>
-        <ContactForm/>
-        
-      <h2>Contacts</h2>
-      <Filter />
-      
-    {isLoading &&     <CircularProgress style={{marginTop:'20px', marginLeft: '20px'}}/>}
-      {!isLoading && <>
-        
-      
-      <ContactList /></>}
+          <h1>Test Details</h1>
+          <p>{tests.testName}</p>
+         <ul>
+              {tests.test.map((test) => {
+                  return <li key={test.question}>
+                      {test.question}
+                      {test.correctAnswer}
+                      {test.incorrectAnswers}
+                  </li>
+              }
+                  )}
+        </ul>
       
       
         <ToastContainer
@@ -59,4 +62,4 @@ const Contacts = () => {
 
 
 
-export default Contacts
+export default TestsList

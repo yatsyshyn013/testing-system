@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://testing-system-back.onrender.com/api/';
 
 const setAuthHeader = (token) => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -21,13 +21,18 @@ export const registerFetch = createAsyncThunk(
   // тому що в цій операції він нам не потрібен
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post("/users/signup", credentials);
+      const response = await axios.post("auth/register", credentials);
       // При успішному запиті повертаємо проміс із даними
       setAuthHeader(response.data.token)  
       // toast.success(`Welcome, ${response.data.user.name}`);
       return response.data;
     } catch (e) {
-      toast.error('You did not fill out the registration form correctly, please try again');
+      // console.log(e);
+      if (e.message === "Request failed with status code 409") {
+        toast.error('Email already in use');
+      } else {
+        toast.error('You did not fill out the registration form correctly, please try again');
+      }
       // При помилці запиту повертаємо проміс
       // який буде відхилений з текстом помилки
       return thunkAPI.rejectWithValue(e.message);
@@ -42,7 +47,7 @@ export const logInFetch = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
 
-      const response = await axios.post("/users/login", credentials);
+      const response = await axios.post("auth/login", credentials);
       // toast.success(`Welcome, ${response.data.user.name}`);
       setAuthHeader(response.data.token)
     
@@ -67,7 +72,7 @@ export const logOutFetch = createAsyncThunk(
 
   async (_, thunkAPI) => {
     try {
-        await axios.post("/users/logout");
+        await axios.post("/auth/logout");
         clearAuthHeader();
       
     } catch (e) {
@@ -91,7 +96,7 @@ export const refreshUser = createAsyncThunk(
       
     try {
       setAuthHeader(persistedToken)
-      const response = await axios.get('/users/current');
+      const response = await axios.get('/auth/current');
       return response.data;
       
     } catch (e) {

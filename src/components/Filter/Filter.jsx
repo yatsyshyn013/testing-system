@@ -1,9 +1,9 @@
 import React from 'react'
 
 // import { FindArea } from 'components/Filter/Filter.styled';
-import { getFilter } from '../../redux/contacts/selectors';
+import { getFilter } from '../../redux/tests/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../../redux/contacts/filterSlice';
+import { setFilter } from '../../redux/tests/filterSlice';
 import TextField from '@mui/material/TextField';
 
 

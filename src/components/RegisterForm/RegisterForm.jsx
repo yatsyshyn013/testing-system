@@ -15,7 +15,7 @@ export const RegisterForm = () => {
         e.preventDefault()
         const form = e.currentTarget;
         dispatch(registerFetch({
-            name: form.elements.name.value,
+            // name: form.elements.name.value,
             email: form.elements.email.value,
             password: form.elements.password.value
         }))
@@ -24,7 +24,7 @@ export const RegisterForm = () => {
 
     return (
         <StyledRegisterForm onSubmit={handleSubmit} >
-             <Label >
+             {/* <Label >
                 
                 <TextField
                     type="text"
@@ -32,7 +32,7 @@ export const RegisterForm = () => {
                     id="outlined-basic"
                     label="Username"
                     variant="outlined"/>
-            </Label>
+            </Label> */}
             <Label>
                 
                 <TextField

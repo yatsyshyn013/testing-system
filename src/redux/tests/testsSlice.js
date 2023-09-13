@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import { fetchTests, addTests, deleteTests, fetchTestById } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true
@@ -11,12 +11,12 @@ const handleRejected = (state, action) => {
       state.error = action.payload
 }
 
-const contactsSlice = createSlice({
-  name: "contacts",
-  initialState: { items: [], isLoading: false, error: null},
+const testsSlice = createSlice({
+  name: "tests",
+  initialState: { items: [], testById: [], isLoading: false, error: null},
   reducers: {},
   extraReducers: {
-    [fetchContacts.fulfilled]: (state, action) => {
+    [fetchTests.fulfilled]: (state, action) => {
       // state.items = action.payload
       return {
         ...state,
@@ -25,7 +25,16 @@ const contactsSlice = createSlice({
         error: null
       }
     },
-    [addContact.fulfilled]: (state, action) => {
+    [fetchTestById.fulfilled]: (state, action) => {
+      // state.items = action.payload
+      return {
+        ...state,
+        testById: action.payload,
+        isLoading: false,
+        error: null
+      }
+    },
+    [addTests.fulfilled]: (state, action) => {
       // state.items = action.payload
       // return {
       //   ...state,
@@ -37,7 +46,7 @@ const contactsSlice = createSlice({
       state.error = null;
       state.items.push(action.payload);
     },
-    [deleteContact.fulfilled]: (state, action) => {
+    [deleteTests.fulfilled]: (state, action) => {
       // state.items = action.payload
       state.isLoading = false;
       state.error = null;
@@ -46,15 +55,17 @@ const contactsSlice = createSlice({
       );
       state.items.splice(index, 1);
     },
-    [fetchContacts.pending] : handlePending,
-    [addContact.pending]: handlePending,
-    [deleteContact.pending]: handlePending,
+    [fetchTests.pending]: handlePending,
+    [fetchTestById.pending] : handlePending,
+    [addTests.pending]: handlePending,
+    [deleteTests.pending]: handlePending,
     // [fetchContacts.fulfilled](state) {
     //   state.isLoading = false
     // },
-    [fetchContacts.rejected]: handleRejected,
-    [addContact.rejected] : handleRejected,
-    [deleteContact.rejected] : handleRejected,
+    [fetchTests.rejected]: handleRejected,
+    [fetchTestById.rejected]: handleRejected,
+    [addTests.rejected] : handleRejected,
+    [deleteTests.rejected] : handleRejected,
     
     
   },
@@ -62,4 +73,4 @@ const contactsSlice = createSlice({
 
 
 
-export const contactsReducer = contactsSlice.reducer
+export const TestsReducer = testsSlice.reducer

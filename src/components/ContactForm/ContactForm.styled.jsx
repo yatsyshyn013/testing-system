@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 
 // `
 export const AddContactBtn = styled(Button)`
+margin-top: 15px;
+margin-bottom: 10px;
     width:fit-content;
 `
 
@@ -49,6 +51,7 @@ export const FormComponent = styled.form`
     padding: 20px;
     width: 400px;
     height: 700px;
+    /* margin-top: 50px; */
     /* margin-top: 400px; */
 `
 

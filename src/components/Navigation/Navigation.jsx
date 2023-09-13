@@ -15,8 +15,11 @@ export const Navigation = () => {
 
     return (<nav style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <StyledLinks to='/' end> <HomeIcon /></StyledLinks>
-        {isLoggedIn && (
-        <StyledLinks to='/contacts'>Tests</StyledLinks>
+      {isLoggedIn && (
+        <>
+          <StyledLinks to='/tests'>Tests</StyledLinks>
+          <StyledLinks to='/tests-list'>Tests List</StyledLinks>
+        </>
         )}
     </nav>)
 }
