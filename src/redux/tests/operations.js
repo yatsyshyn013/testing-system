@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 // axios.defaults.baseURL = "https://646a14b1183682d6144d2ef5.mockapi.io/contacts"
@@ -27,6 +27,10 @@ export const fetchTestById = createAsyncThunk(
         return thunkAPI.rejectWithValue(error)
     }
   }
+)
+
+export const changeCurrentQuestionIndex = createAction(
+     'tests/changeCurrentQuestionIndex'
 )
 
 export const addTests = createAsyncThunk(

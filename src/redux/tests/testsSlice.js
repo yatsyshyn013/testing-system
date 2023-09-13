@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTests, addTests, deleteTests, fetchTestById } from "./operations";
+import { fetchTests, addTests, deleteTests, fetchTestById, changeCurrentQuestionIndex } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true
@@ -13,7 +13,14 @@ const handleRejected = (state, action) => {
 
 const testsSlice = createSlice({
   name: "tests",
-  initialState: { items: [], testById: [], isLoading: false, error: null},
+  initialState: {
+    items: [],
+    testById: [],
+    currentTestArray: [],
+    currentQuestionIndex: 0,
+    isLoading: false,
+    error: null
+  },
   reducers: {},
   extraReducers: {
     [fetchTests.fulfilled]: (state, action) => {
@@ -30,8 +37,16 @@ const testsSlice = createSlice({
       return {
         ...state,
         testById: action.payload,
+        currentTestArray: action.payload.test,
         isLoading: false,
         error: null
+      }
+    },
+    [changeCurrentQuestionIndex.fulfilled]: (state, action) => {
+      // state.items = action.payload
+      return {
+        ...state,
+       currentQuestionIndex: state.currentQuestionIndex +1,
       }
     },
     [addTests.fulfilled]: (state, action) => {

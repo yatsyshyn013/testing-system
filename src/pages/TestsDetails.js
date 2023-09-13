@@ -13,6 +13,7 @@ import { StyledLinks } from "../components/SharedLayout/SharedLayout.styled"
 // import { ThreeDots } from "react-loader-spinner";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useParams } from "react-router-dom";
+import Quiz from '../components/Quiz/Quiz';
 
 
 
@@ -25,9 +26,23 @@ const TestsList = () => {
     const { id } = useParams();
     console.log(id);
 
+  
+
+  function shuffleAnswers(question) {
+    const unshuffledAnswers = [
+      question.correctAnswer,
+      ...question.incorrectAnswers,
+    ];
+    return unshuffledAnswers
+      .map(answer => ({ sort: Math.random(), value: answer }))
+      .sort((a, b) => a.sort - b.sort)
+      .map((obj) => obj.value);
+  }
+
   useEffect(() => {
     dispatch(fetchTestById(id))
-  }, [dispatch])
+    
+  }, [dispatch, id])
   
   return (
     <PhoneBookContainer style={
@@ -37,17 +52,19 @@ const TestsList = () => {
     } >
       
           <h1>Test Details</h1>
-          <p>{tests.testName}</p>
-         <ul>
-              {tests.test.map((test) => {
-                  return <li key={test.question}>
-                      {test.question}
-                      {test.correctAnswer}
-                      {test.incorrectAnswers}
+      <p>{tests.testName}</p>
+      <div>Now showing test with id - {id}</div>
+    <div><Quiz/></div>
+      {/* <ul>
+              {tests.test.map((item) => {
+                  return <li key={item._id}>
+                      {item.question}
+                      {item.correctAnswer}
+                      {item.incorrectAnswers}
                   </li>
               }
                   )}
-        </ul>
+        </ul> */}
       
       
         <ToastContainer

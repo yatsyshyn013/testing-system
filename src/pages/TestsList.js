@@ -7,6 +7,7 @@ import { Filter } from '../components/Filter/Filter';
 import { fetchTests } from '../redux/tests/operations';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchTestById } from '../redux/tests/operations';
 import { getTests } from '../redux/tests/selectors';
 import { StyledLinks } from "../components/SharedLayout/SharedLayout.styled"
 // import { Loader } from 'components/Loader/Loader';
@@ -25,6 +26,10 @@ const TestsList = () => {
   useEffect(() => {
     dispatch(fetchTests())
   }, [dispatch])
+
+  // function hanldeTestById(id) {
+  //   fetchTestById(id)
+  // }
   
   return (
     <PhoneBookContainer style={
@@ -36,7 +41,7 @@ const TestsList = () => {
         <h1>Test List</h1>
           <ul>
               {tests.map((test) => {
-                  return <StyledLinks to={`${test._id}`}><li key={test._id}>{test.testName} </li></StyledLinks>
+                  return <StyledLinks to={`${test._id}`} ><li key={test._id}>{test.testName} </li></StyledLinks>
               }
                   )}
         </ul>
