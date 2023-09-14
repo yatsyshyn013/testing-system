@@ -1,6 +1,6 @@
-import { StyledLinks } from "../SharedLayout/SharedLayout.styled"
+import { StyledLinks } from "../SharedLayout/SharedLayout.styled";
 import { useAuth } from "../../hooks/useAuth";
-import SvgIcon from '@mui/material/SvgIcon';
+import SvgIcon from "@mui/material/SvgIcon";
 
 function HomeIcon(props) {
   return (
@@ -11,15 +11,27 @@ function HomeIcon(props) {
 }
 
 export const Navigation = () => {
-    const {isLoggedIn} = useAuth()
+  const { isLoggedIn } = useAuth();
 
-    return (<nav style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <StyledLinks to='/' end> <HomeIcon /></StyledLinks>
+  return (
+    <nav
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <StyledLinks to="/" end>
+        {" "}
+        <HomeIcon />
+      </StyledLinks>
       {isLoggedIn && (
         <>
-          <StyledLinks to='/tests'>Tests</StyledLinks>
-          <StyledLinks to='/tests-list'>Tests List</StyledLinks>
+          <StyledLinks to="/tests">Create the test</StyledLinks>
+          <StyledLinks to="/tests-list">Tests List</StyledLinks>
+          <StyledLinks to="/results">Results</StyledLinks>
         </>
-        )}
-    </nav>)
-}
+      )}
+    </nav>
+  );
+};

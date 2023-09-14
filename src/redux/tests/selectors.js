@@ -13,3 +13,5 @@ export const results = (state) => state.tests.showResults;
 export const currentAnswer = (state) => state.tests.currentAnswer;
 
 export const correctAnswersCount = (state) => state.tests.correctAnswersCount;
+
+export const testResults = (state) => state.tests.results;

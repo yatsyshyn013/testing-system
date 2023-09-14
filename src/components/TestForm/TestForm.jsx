@@ -168,9 +168,9 @@ export const TestForm = () => {
             onClick={handleAddQuestion}
             size="small"
           >
-            Add another question{" "}
+            Add another question
             <BiListPlus
-              size="small"
+              size={30}
               style={{ marginLeft: "5px", width: "20px" }}
             />
           </AddTestBtn>
@@ -180,22 +180,16 @@ export const TestForm = () => {
             onClick={handleCompleteTest}
             size="small"
           >
-            Complete test{" "}
-            <MdDoneAll
-              size="small"
-              style={{ marginLeft: "5px", width: "20px" }}
-            />
+            Complete test
+            <MdDoneAll size={30} style={{ marginLeft: "5px", width: "20px" }} />
           </AddTestBtn>
         </>
       )}
 
       {completeTest === true && (
         <AddTestBtn variant="contained" type="submit" size="small">
-          Add test to the list{" "}
-          <BiListPlus
-            size="small"
-            style={{ marginLeft: "5px", width: "20px" }}
-          />
+          Add test to the list
+          <BiListPlus size={30} style={{ marginLeft: "5px", width: "20px" }} />
         </AddTestBtn>
       )}
 

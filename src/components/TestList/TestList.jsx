@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export function TestList({ testItem }) {
   const tests = useSelector(getTests);
-  console.log(testItem);
+  // console.log(testItem);
 
   // const filtered = useSelector(getFilter);
   const dispatch = useDispatch();

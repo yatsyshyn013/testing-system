@@ -22,6 +22,7 @@ const testsSlice = createSlice({
     correctAnswersCount: 0,
     currentAnswer: "",
     showResults: false,
+    results: [],
     isLoading: false,
     error: null,
   },
@@ -63,6 +64,16 @@ const testsSlice = createSlice({
         currentQuestionIndex: 0,
         showResults: false,
         correctAnswersCount: 0,
+      };
+    },
+    resultsCount: (state, action) => {
+      const results = {
+        name: state.testById.testName,
+        result: state.correctAnswersCount,
+      };
+      return {
+        ...state,
+        results,
       };
     },
   },
@@ -109,5 +120,6 @@ const testsSlice = createSlice({
 export const { incrementCorrectAnswersCount } = testsSlice.actions;
 export const { nextQuestion } = testsSlice.actions;
 export const { restart } = testsSlice.actions;
+export const { resultsCount } = testsSlice.actions;
 
 export const TestsReducer = testsSlice.reducer;
