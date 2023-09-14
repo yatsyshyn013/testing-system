@@ -1,24 +1,19 @@
 import { useState } from "react";
 import { TestComponent, AddTestBtn, TestsField } from "./TestForm.styled";
-import { toast } from "react-toastify";
-// import { getTests } from '../../redux/tests/selectors';
+
 import { useDispatch } from "react-redux";
 import { addTests } from "../../redux/tests/operations";
 
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { MdDoneAll } from "react-icons/md";
 import { BiListPlus } from "react-icons/bi";
 
 export const TestForm = () => {
-  // const tests = useSelector(getTests);
   const dispatch = useDispatch();
 
   const [completeTest, setCompleteTest] = useState(false);
   const [testList, setTestList] = useState(false);
   const [testName, setTestName] = useState("");
-  //   const [question, setQuestion] = useState("");
-  //   const [correctAnswer, setCorrectAnswer] = useState("");
-  //   const [incorrectAnswers, setIncorrectAnswers] = useState("");
+
   const [formData, setFormData] = useState({
     testName: "",
     questions: [],
@@ -69,7 +64,7 @@ export const TestForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.currentTarget;
+
     const formattedData = {
       testName,
       test: formData.questions.map((q) => ({
