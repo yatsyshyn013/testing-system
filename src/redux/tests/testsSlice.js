@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTests, addTests, deleteTests, fetchTestById, changeCurrentQuestionIndex } from "./operations";
+import { fetchTests, addTests, deleteTests, fetchTestById } from "./operations";
+import { shuffleAnswers } from "../../helpers/helpers";
 
 const handlePending = (state) => {
-  state.isLoading = true
-  state.error = null
-}
+  state.isLoading = true;
+  state.error = null;
+};
 
 const handleRejected = (state, action) => {
-  state.isLoading = false
-      state.error = action.payload
-}
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const testsSlice = createSlice({
   name: "tests",
@@ -18,74 +19,95 @@ const testsSlice = createSlice({
     testById: [],
     currentTestArray: [],
     currentQuestionIndex: 0,
+    correctAnswersCount: 0,
+    currentAnswer: "",
+    showResults: false,
     isLoading: false,
-    error: null
+    error: null,
   },
-  reducers: {},
+  reducers: {
+    incrementCorrectAnswersCount: (state, action) => {
+      const correctAnswersCount =
+        action.payload ===
+        state.currentTestArray[state.currentQuestionIndex].correctAnswer
+          ? state.correctAnswersCount + 1
+          : state.correctAnswersCount;
+      return {
+        ...state,
+        currentAnswer: action.payload,
+        correctAnswersCount,
+      };
+    },
+    nextQuestion: (state) => {
+      const showResults =
+        state.currentQuestionIndex === state.currentTestArray.length - 1;
+
+      const currentQuestionIndex = showResults
+        ? state.currentQuestionIndex
+        : state.currentQuestionIndex + 1;
+      const answers = showResults
+        ? []
+        : shuffleAnswers(state.currentTestArray[currentQuestionIndex]);
+
+      return {
+        ...state,
+        currentAnswer: "",
+        showResults,
+        currentQuestionIndex,
+        answers,
+      };
+    },
+    restart: (state) => {
+      return {
+        ...state,
+        currentQuestionIndex: 0,
+        showResults: false,
+        correctAnswersCount: 0,
+      };
+    },
+  },
   extraReducers: {
     [fetchTests.fulfilled]: (state, action) => {
-      // state.items = action.payload
       return {
         ...state,
         items: [...action.payload],
         isLoading: false,
-        error: null
-      }
+        error: null,
+      };
     },
     [fetchTestById.fulfilled]: (state, action) => {
-      // state.items = action.payload
       return {
         ...state,
         testById: action.payload,
         currentTestArray: action.payload.test,
         isLoading: false,
-        error: null
-      }
-    },
-    [changeCurrentQuestionIndex.fulfilled]: (state, action) => {
-      // state.items = action.payload
-      return {
-        ...state,
-       currentQuestionIndex: state.currentQuestionIndex +1,
-      }
+        error: null,
+      };
     },
     [addTests.fulfilled]: (state, action) => {
-      // state.items = action.payload
-      // return {
-      //   ...state,
-      //   items: [...state.items, ...action.payload],
-      //   isLoading: false,
-      //   error: null
-      // }
       state.isLoading = false;
       state.error = null;
       state.items.push(action.payload);
     },
     [deleteTests.fulfilled]: (state, action) => {
-      // state.items = action.payload
       state.isLoading = false;
       state.error = null;
-      const index = state.items.findIndex(
-        task => task.id === action.payload.id
-      );
+      const index = state.items.findIndex((task) => task.id === action.payload);
       state.items.splice(index, 1);
     },
     [fetchTests.pending]: handlePending,
-    [fetchTestById.pending] : handlePending,
+    [fetchTestById.pending]: handlePending,
     [addTests.pending]: handlePending,
     [deleteTests.pending]: handlePending,
-    // [fetchContacts.fulfilled](state) {
-    //   state.isLoading = false
-    // },
     [fetchTests.rejected]: handleRejected,
     [fetchTestById.rejected]: handleRejected,
-    [addTests.rejected] : handleRejected,
-    [deleteTests.rejected] : handleRejected,
-    
-    
+    [addTests.rejected]: handleRejected,
+    [deleteTests.rejected]: handleRejected,
   },
 });
 
+export const { incrementCorrectAnswersCount } = testsSlice.actions;
+export const { nextQuestion } = testsSlice.actions;
+export const { restart } = testsSlice.actions;
 
-
-export const TestsReducer = testsSlice.reducer
+export const TestsReducer = testsSlice.reducer;
