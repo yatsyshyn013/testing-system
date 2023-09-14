@@ -48,6 +48,12 @@ export default function App() {
           }
         />
         <Route
+          path="/logout"
+          element={
+            <RestrictedRoute redirectTo="/login" component={<Login />} />
+          }
+        />
+        <Route
           path="/tests"
           element={<PrivateRoute redirectTo="/login" component={<Tests />} />}
         />
