@@ -1,4 +1,4 @@
-import { useAuth } from "../../hooks/useAuth";
+// import { useAuth } from "../../hooks/useAuth";
 import { UserMenuButton, UserMenuStyled, WelcomeText } from "./UserMenu.styled";
 import { useDispatch } from "react-redux";
 import { logOutFetch } from "../../redux/auth/authOperations";
@@ -11,7 +11,7 @@ export const UserMenu = () => {
     dispatch(logOutFetch());
   };
 
-  const { user } = useAuth();
+  // const { user } = useAuth();
   return (
     <UserMenuStyled>
       <WelcomeText>Welcome, User</WelcomeText>
