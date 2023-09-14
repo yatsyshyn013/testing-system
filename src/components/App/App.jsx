@@ -2,11 +2,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { ThreeDots } from "react-loader-spinner";
+// import { ThreeDots } from "react-loader-spinner";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { lazy } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import SharedLayout from "../SharedLayout/SharedLayout";
 import { refreshUser } from "../../redux/auth/authOperations";
 import { useAuth } from "../../hooks/useAuth";

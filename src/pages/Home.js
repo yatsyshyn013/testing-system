@@ -23,7 +23,7 @@ const Home = () => {
     },
   });
 
-  const [value, setValue] = useState(4);
+  // const [value, setValue] = useState(4);
 
   const steps = [
     {

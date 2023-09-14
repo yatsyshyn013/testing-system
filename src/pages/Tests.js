@@ -2,8 +2,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TestsContainer } from "../components/App/App.styled";
 import { TestForm } from "../components/TestForm/TestForm";
-import { TestList } from "../components/TestList/TestList";
-import { Filter } from "../components/Filter/Filter";
+
 import { fetchTests } from "../redux/tests/operations";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
