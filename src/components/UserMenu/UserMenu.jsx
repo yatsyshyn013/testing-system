@@ -14,7 +14,7 @@ export const UserMenu = () => {
   const { user } = useAuth();
   return (
     <UserMenuStyled>
-      <WelcomeText>Welcome, {user.email}</WelcomeText>
+      <WelcomeText>Welcome, User</WelcomeText>
       <UserMenuButton variant="contained" onClick={handleClick}>
         <LogoutIcon style={{ width: "20px", marginRight: "5px" }} /> Logout{" "}
       </UserMenuButton>

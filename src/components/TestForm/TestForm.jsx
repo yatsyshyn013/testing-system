@@ -51,12 +51,6 @@ export const TestForm = () => {
     }));
     setCompleteTest(true);
     setTestList(true);
-
-    //     setCurrentQuestion({
-    //   question: "-",
-    //   correctAnswer: "-",
-    //   incorrectAnswers: [0],
-    // });
   };
 
   const handleAddQuestion = (e) => {
@@ -87,8 +81,6 @@ export const TestForm = () => {
     };
 
     dispatch(addTests(formattedData));
-    console.log("Тест додано до бази даних:");
-    // Очистити форму
     setTestName("");
     setFormData({
       testName: "",
